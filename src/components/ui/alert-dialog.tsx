@@ -62,10 +62,5 @@ export function AlertDialogFooter({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
-  return (
-    <div
-      className={cn("flex justify-end gap-2 mt-4", className)}
-      {...props}
-    />
-  );
+  return <div className={cn("flex justify-end gap-2 mt-4", className)} {...props} />;
 }

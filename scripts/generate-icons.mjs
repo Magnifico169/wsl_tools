@@ -71,7 +71,14 @@ function createMultiSizeIco(sizes, color) {
     const andRowPadded =
       andRowBytes % 4 === 0 ? andRowBytes : andRowBytes + (4 - (andRowBytes % 4));
     const andSize = andRowPadded * size;
-    return { size, dibSize: 40 + xorSize + andSize, xorSize, andSize, xorRowBytes, andRowPadded };
+    return {
+      size,
+      dibSize: 40 + xorSize + andSize,
+      xorSize,
+      andSize,
+      xorRowBytes,
+      andRowPadded,
+    };
   });
 
   const headerSize = 6 + 16 * images.length;
@@ -108,8 +115,7 @@ function createMultiSizeIco(sizes, color) {
     dataParts.push(part);
   }
 
-  const totalSize =
-    headerSize + dataParts.reduce((sum, p) => sum + p.length, 0);
+  const totalSize = headerSize + dataParts.reduce((sum, p) => sum + p.length, 0);
   const buf = Buffer.alloc(totalSize);
   let o = 0;
 

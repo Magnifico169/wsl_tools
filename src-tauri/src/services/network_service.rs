@@ -45,11 +45,8 @@ async fn detect_network_mode() -> String {
 }
 
 pub async fn list_port_proxies() -> AppResult<Vec<PortProxy>> {
-    let output = run_program_allow_failure(
-        "netsh",
-        &["interface", "portproxy", "show", "v4"],
-    )
-    .await?;
+    let output =
+        run_program_allow_failure("netsh", &["interface", "portproxy", "show", "v4"]).await?;
 
     let mut proxies = Vec::new();
     let line_re = Regex::new(
@@ -87,11 +84,7 @@ pub async fn list_port_proxies() -> AppResult<Vec<PortProxy>> {
     Ok(proxies)
 }
 
-pub fn portproxy_add_command(
-    listen_port: u16,
-    connect_port: u16,
-    connect_ip: &str,
-) -> String {
+pub fn portproxy_add_command(listen_port: u16, connect_port: u16, connect_ip: &str) -> String {
     format!(
         "netsh interface portproxy add v4tov4 listenport={listen_port} listenaddress=0.0.0.0 connectport={connect_port} connectaddress={connect_ip}"
     )
@@ -129,13 +122,10 @@ pub async fn get_resource_usage(distro_name: &str) -> AppResult<ResourceUsage> {
         })
         .unwrap_or((None, None));
 
-    let cpu_output = run_wsl(
-        &["-d", distro_name, "--", "nproc"],
-        false,
-    )
-    .await
-    .ok()
-    .and_then(|o| o.text().trim().parse().ok());
+    let cpu_output = run_wsl(&["-d", distro_name, "--", "nproc"], false)
+        .await
+        .ok()
+        .and_then(|o| o.text().trim().parse().ok());
 
     let config = read_wslconfig().unwrap_or_default();
     let limits = parse_limits(&config);
@@ -147,18 +137,15 @@ pub async fn get_resource_usage(distro_name: &str) -> AppResult<ResourceUsage> {
         memory_limit_mb: memory_limit_mb(&config),
         cpu_count: cpu_output,
         processor_limit: limits.processors,
-        swap_limit_mb: limits
-            .swap
-            .as_deref()
-            .and_then(|s| {
-                let upper = s.to_uppercase();
-                if let Some(n) = upper.strip_suffix("GB") {
-                    n.trim().parse::<f64>().ok().map(|v| v * 1024.0)
-                } else if let Some(n) = upper.strip_suffix("MB") {
-                    n.trim().parse().ok()
-                } else {
-                    None
-                }
-            }),
+        swap_limit_mb: limits.swap.as_deref().and_then(|s| {
+            let upper = s.to_uppercase();
+            if let Some(n) = upper.strip_suffix("GB") {
+                n.trim().parse::<f64>().ok().map(|v| v * 1024.0)
+            } else if let Some(n) = upper.strip_suffix("MB") {
+                n.trim().parse().ok()
+            } else {
+                None
+            }
+        }),
     })
 }

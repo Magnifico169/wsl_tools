@@ -68,7 +68,12 @@ export function DistrosPage() {
 
   const inApp = isTauriApp();
 
-  const { data: distros = [], isLoading, refetch, isFetching } = useQuery({
+  const {
+    data: distros = [],
+    isLoading,
+    refetch,
+    isFetching,
+  } = useQuery({
     queryKey: queryKeys.distros,
     queryFn: api.listDistros,
     refetchInterval: inApp ? 4000 : false,
@@ -157,143 +162,143 @@ export function DistrosPage() {
         description="Управление WSL-дистрибутивами"
         actions={
           <>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => refetch()}
-            disabled={isFetching}
-          >
-            <RefreshCw className={`h-4 w-4 ${isFetching ? "animate-spin" : ""}`} />
-            Обновить
-          </Button>
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button variant="outline" size="sm">
-                <Power className="h-4 w-4" />
-                Перезапуск WSL
-              </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle className="text-lg font-semibold">
-                  Перезапустить WSL?
-                </AlertDialogTitle>
-                <AlertDialogDescription>
-                  Все запущенные дистрибутивы будут остановлены (wsl --shutdown).
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancelButton>Отмена</AlertDialogCancelButton>
-                <AlertDialogAction
-                  variant="destructive"
-                  onClick={() =>
-                    action.mutate({
-                      fn: api.shutdownWsl,
-                      success: "WSL перезапущен",
-                    })
-                  }
-                >
-                  Перезапустить
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button size="sm">
-                <Plus className="h-4 w-4" />
-                Установить
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Установить дистрибутив</DialogTitle>
-                <DialogDescription>
-                  Выберите из каталога или введите имя вручную
-                </DialogDescription>
-              </DialogHeader>
-              <div className="space-y-3">
-                <div className="flex flex-wrap gap-2">
-                  {online.map((name) => (
-                    <Button
-                      key={name}
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setInstallName(name)}
-                    >
-                      {name}
-                    </Button>
-                  ))}
-                </div>
-                <div className="space-y-2">
-                  <Label>Имя</Label>
-                  <Input
-                    value={installName}
-                    onChange={(e) => setInstallName(e.target.value)}
-                    placeholder="Ubuntu-24.04"
-                  />
-                </div>
-                <Button
-                  className="w-full"
-                  disabled={!installName || action.isPending}
-                  onClick={() =>
-                    action.mutate({
-                      fn: () => api.installDistro(installName),
-                      success: `Установка ${installName} запущена`,
-                    })
-                  }
-                >
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => refetch()}
+              disabled={isFetching}
+            >
+              <RefreshCw className={`h-4 w-4 ${isFetching ? "animate-spin" : ""}`} />
+              Обновить
+            </Button>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button variant="outline" size="sm">
+                  <Power className="h-4 w-4" />
+                  Перезапуск WSL
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle className="text-lg font-semibold">
+                    Перезапустить WSL?
+                  </AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Все запущенные дистрибутивы будут остановлены (wsl --shutdown).
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancelButton>Отмена</AlertDialogCancelButton>
+                  <AlertDialogAction
+                    variant="destructive"
+                    onClick={() =>
+                      action.mutate({
+                        fn: api.shutdownWsl,
+                        success: "WSL перезапущен",
+                      })
+                    }
+                  >
+                    Перезапустить
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button size="sm">
+                  <Plus className="h-4 w-4" />
                   Установить
                 </Button>
-              </div>
-            </DialogContent>
-          </Dialog>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button variant="secondary" size="sm">
-                <Upload className="h-4 w-4" />
-                Импорт
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Импорт дистрибутива</DialogTitle>
-              </DialogHeader>
-              <div className="space-y-3">
-                <div className="space-y-2">
-                  <Label>Имя</Label>
-                  <Input
-                    value={importName}
-                    onChange={(e) => setImportName(e.target.value)}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label>Папка установки</Label>
-                  <Input
-                    value={importLocation}
-                    onChange={(e) => setImportLocation(e.target.value)}
-                    placeholder="C:\\WSL\\MyDistro"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label>Файл .tar</Label>
-                  <div className="flex gap-2">
-                    <Input value={importTar} readOnly />
-                    <Button variant="outline" onClick={pickTar}>
-                      Обзор
-                    </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Установить дистрибутив</DialogTitle>
+                  <DialogDescription>
+                    Выберите из каталога или введите имя вручную
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="space-y-3">
+                  <div className="flex flex-wrap gap-2">
+                    {online.map((name) => (
+                      <Button
+                        key={name}
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setInstallName(name)}
+                      >
+                        {name}
+                      </Button>
+                    ))}
                   </div>
+                  <div className="space-y-2">
+                    <Label>Имя</Label>
+                    <Input
+                      value={installName}
+                      onChange={(e) => setInstallName(e.target.value)}
+                      placeholder="Ubuntu-24.04"
+                    />
+                  </div>
+                  <Button
+                    className="w-full"
+                    disabled={!installName || action.isPending}
+                    onClick={() =>
+                      action.mutate({
+                        fn: () => api.installDistro(installName),
+                        success: `Установка ${installName} запущена`,
+                      })
+                    }
+                  >
+                    Установить
+                  </Button>
                 </div>
-                <Button
-                  className="w-full"
-                  disabled={action.isPending}
-                  onClick={handleImport}
-                >
-                  Импортировать
+              </DialogContent>
+            </Dialog>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="secondary" size="sm">
+                  <Upload className="h-4 w-4" />
+                  Импорт
                 </Button>
-              </div>
-            </DialogContent>
-          </Dialog>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Импорт дистрибутива</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-3">
+                  <div className="space-y-2">
+                    <Label>Имя</Label>
+                    <Input
+                      value={importName}
+                      onChange={(e) => setImportName(e.target.value)}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Папка установки</Label>
+                    <Input
+                      value={importLocation}
+                      onChange={(e) => setImportLocation(e.target.value)}
+                      placeholder="C:\\WSL\\MyDistro"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Файл .tar</Label>
+                    <div className="flex gap-2">
+                      <Input value={importTar} readOnly />
+                      <Button variant="outline" onClick={pickTar}>
+                        Обзор
+                      </Button>
+                    </div>
+                  </div>
+                  <Button
+                    className="w-full"
+                    disabled={action.isPending}
+                    onClick={handleImport}
+                  >
+                    Импортировать
+                  </Button>
+                </div>
+              </DialogContent>
+            </Dialog>
           </>
         }
       />
@@ -313,14 +318,20 @@ export function DistrosPage() {
             <tbody>
               {isLoading && (
                 <tr>
-                  <td colSpan={5} className="p-6 text-center text-[var(--color-muted-foreground)]">
+                  <td
+                    colSpan={5}
+                    className="p-6 text-center text-[var(--color-muted-foreground)]"
+                  >
                     Загрузка...
                   </td>
                 </tr>
               )}
               {!isLoading && distros.length === 0 && (
                 <tr>
-                  <td colSpan={5} className="p-6 text-center text-[var(--color-muted-foreground)]">
+                  <td
+                    colSpan={5}
+                    className="p-6 text-center text-[var(--color-muted-foreground)]"
+                  >
                     Дистрибутивы не найдены
                   </td>
                 </tr>
@@ -377,7 +388,8 @@ export function DistrosPage() {
             <ul className="space-y-1 text-sm text-[var(--color-muted-foreground)]">
               {history.slice(0, 5).map((h) => (
                 <li key={`${h.exportedAt}-${h.path}`}>
-                  {h.distroName} → {h.path} ({new Date(h.exportedAt).toLocaleString("ru")})
+                  {h.distroName} → {h.path} ({new Date(h.exportedAt).toLocaleString("ru")}
+                  )
                 </li>
               ))}
             </ul>
@@ -425,36 +437,53 @@ function DistroRow({
       <td className="p-3">
         <div className="flex justify-end gap-1">
           {distro.state === "running" ? (
-            <Button variant="ghost" size="icon" disabled={busy} onClick={onStop} title="Остановить">
+            <Button
+              variant="ghost"
+              size="icon"
+              disabled={busy}
+              onClick={onStop}
+              title="Остановить"
+            >
               <Square className="h-4 w-4" />
             </Button>
           ) : (
-            <Button variant="ghost" size="icon" disabled={busy} onClick={onStart} title="Запустить">
+            <Button
+              variant="ghost"
+              size="icon"
+              disabled={busy}
+              onClick={onStart}
+              title="Запустить"
+            >
               <Play className="h-4 w-4" />
             </Button>
           )}
-          <Button variant="ghost" size="icon" disabled={busy} onClick={onTerminal} title="Терминал">
+          <Button
+            variant="ghost"
+            size="icon"
+            disabled={busy}
+            onClick={onTerminal}
+            title="Терминал"
+          >
             <Terminal className="h-4 w-4" />
           </Button>
           {!distro.isDefault && (
-            <Button variant="ghost" size="icon" disabled={busy} onClick={onDefault} title="По умолчанию">
+            <Button
+              variant="ghost"
+              size="icon"
+              disabled={busy}
+              onClick={onDefault}
+              title="По умолчанию"
+            >
               <Star className="h-4 w-4" />
             </Button>
           )}
           <div className="relative">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setMenuOpen(!menuOpen)}
-            >
+            <Button variant="ghost" size="icon" onClick={() => setMenuOpen(!menuOpen)}>
               <MoreVertical className="h-4 w-4" />
             </Button>
             {menuOpen && (
               <>
-                <div
-                  className="fixed inset-0 z-40"
-                  onClick={() => setMenuOpen(false)}
-                />
+                <div className="fixed inset-0 z-40" onClick={() => setMenuOpen(false)} />
                 <div className="absolute right-0 z-50 mt-1 w-40 rounded-md border border-[var(--color-border)] bg-[var(--color-card)] py-1 shadow-lg">
                   <button
                     type="button"
@@ -487,10 +516,7 @@ function DistroRow({
                       </AlertDialogHeader>
                       <AlertDialogFooter>
                         <AlertDialogCancelButton>Отмена</AlertDialogCancelButton>
-                        <AlertDialogAction
-                          variant="destructive"
-                          onClick={onUnregister}
-                        >
+                        <AlertDialogAction variant="destructive" onClick={onUnregister}>
                           Удалить
                         </AlertDialogAction>
                       </AlertDialogFooter>

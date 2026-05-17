@@ -24,7 +24,10 @@ pub fn parse_distro_list(output: &str) -> Vec<Distro> {
         if let Some(re) = &version_re {
             if let Some(caps) = re.captures(line) {
                 let is_default = caps.get(1).map(|m| !m.as_str().is_empty()).unwrap_or(false);
-                let name = caps.get(2).map(|m| m.as_str().to_string()).unwrap_or_default();
+                let name = caps
+                    .get(2)
+                    .map(|m| m.as_str().to_string())
+                    .unwrap_or_default();
                 let state = parse_state(caps.get(3).map(|m| m.as_str()).unwrap_or(""));
                 let version: u8 = caps
                     .get(4)
@@ -44,7 +47,10 @@ pub fn parse_distro_list(output: &str) -> Vec<Distro> {
         if let Some(re) = &legacy_re {
             if let Some(caps) = re.captures(line) {
                 let is_default = caps.get(1).map(|m| !m.as_str().is_empty()).unwrap_or(false);
-                let name = caps.get(2).map(|m| m.as_str().to_string()).unwrap_or_default();
+                let name = caps
+                    .get(2)
+                    .map(|m| m.as_str().to_string())
+                    .unwrap_or_default();
                 let state = parse_state(caps.get(3).map(|m| m.as_str()).unwrap_or(""));
                 distros.push(Distro {
                     name,
@@ -192,7 +198,7 @@ pub async fn export_distro(name: &str, path: &str) -> AppResult<()> {
         path: path.to_string(),
         exported_at: chrono::Utc::now().to_rfc3339(),
     })
-    .map_err(|e| AppError::Io(e))?;
+    .map_err(AppError::Io)?;
     Ok(())
 }
 

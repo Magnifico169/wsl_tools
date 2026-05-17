@@ -1,6 +1,6 @@
 use crate::error::{AppError, AppResult};
-use regex::Regex;
 use once_cell::sync::Lazy;
+use regex::Regex;
 
 static DISTRO_NAME_RE: Lazy<Regex> =
     Lazy::new(|| Regex::new(r"^[a-zA-Z0-9._-]+$").expect("valid distro name regex"));

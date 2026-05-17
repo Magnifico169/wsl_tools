@@ -1,10 +1,4 @@
-import {
-  HardDrive,
-  Network,
-  ScrollText,
-  Settings,
-  Terminal,
-} from "lucide-react";
+import { HardDrive, Network, ScrollText, Settings, Terminal } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export type PageId = "distros" | "config" | "network" | "logs";

@@ -18,10 +18,7 @@ const CREATE_NO_WINDOW: u32 = 0x0800_0000;
 static LOG_BUFFER: Lazy<Mutex<Vec<LogEntry>>> = Lazy::new(|| Mutex::new(Vec::new()));
 
 pub fn get_logs() -> Vec<LogEntry> {
-    LOG_BUFFER
-        .lock()
-        .map(|g| g.clone())
-        .unwrap_or_default()
+    LOG_BUFFER.lock().map(|g| g.clone()).unwrap_or_default()
 }
 
 pub fn clear_logs() {
@@ -56,10 +53,7 @@ impl CommandOutput {
 }
 
 fn decode_output(stdout: &[u8], stderr: &[u8]) -> (String, String) {
-    (
-        decode_console_output(stdout),
-        decode_console_output(stderr),
-    )
+    (decode_console_output(stdout), decode_console_output(stderr))
 }
 
 #[cfg(windows)]
@@ -151,14 +145,15 @@ pub async fn run_wsl(args: &[&str], long_running: bool) -> AppResult<CommandOutp
     run_program("wsl", args, timeout_secs).await
 }
 
-pub async fn run_program(program: &str, args: &[&str], timeout_secs: u64) -> AppResult<CommandOutput> {
+pub async fn run_program(
+    program: &str,
+    args: &[&str],
+    timeout_secs: u64,
+) -> AppResult<CommandOutput> {
     run_command_internal(program, args, Some(timeout_secs), true).await
 }
 
-pub async fn run_program_allow_failure(
-    program: &str,
-    args: &[&str],
-) -> AppResult<CommandOutput> {
+pub async fn run_program_allow_failure(program: &str, args: &[&str]) -> AppResult<CommandOutput> {
     run_command_internal(program, args, None, true).await
 }
 
@@ -170,7 +165,7 @@ pub async fn spawn_hidden(program: &str, args: &[&str]) -> AppResult<()> {
     command.stdout(Stdio::null());
     command.stderr(Stdio::null());
 
-    command.spawn().map_err(|e| AppError::Io(e))?;
+    command.spawn().map_err(AppError::Io)?;
 
     push_log(LogEntry {
         timestamp: Utc::now().to_rfc3339(),

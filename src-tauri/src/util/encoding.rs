@@ -22,15 +22,18 @@ pub fn decode_console_output(bytes: &[u8]) -> String {
 }
 
 fn looks_like_utf16_le(bytes: &[u8]) -> bool {
-    if bytes.len() < 4 || !bytes.len().is_multiple_of(2) {
+    if bytes.len() < 4 || bytes.len() % 2 != 0 {
         return false;
     }
-    let zero_high = bytes.chunks(2).filter(|c| c.len() == 2 && c[1] == 0).count();
+    let zero_high = bytes
+        .chunks(2)
+        .filter(|c| c.len() == 2 && c[1] == 0)
+        .count();
     zero_high > bytes.len() / 4
 }
 
 fn decode_utf16_le(bytes: &[u8]) -> String {
-    if !bytes.len().is_multiple_of(2) {
+    if bytes.len() % 2 != 0 {
         return encoding_rs::WINDOWS_1251.decode(bytes).0.into_owned();
     }
     let units: Vec<u16> = bytes

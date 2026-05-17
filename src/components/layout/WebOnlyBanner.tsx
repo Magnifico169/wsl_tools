@@ -21,7 +21,8 @@ export function WebOnlyBanner() {
           <code className="rounded bg-amber-500/15 px-1 font-mono text-xs">
             npm run dev
           </code>{" "}
-          (не <code className="rounded bg-amber-500/15 px-1 font-mono text-xs">dev:web</code>
+          (не{" "}
+          <code className="rounded bg-amber-500/15 px-1 font-mono text-xs">dev:web</code>
           ).
         </p>
       </div>

@@ -42,9 +42,7 @@ pub fn validate_wslconfig(content: &str) -> AppResult<()> {
         }
         if trimmed.starts_with('[') {
             if !trimmed.ends_with(']') {
-                return Err(AppError::Other(format!(
-                    "Некорректная секция: {trimmed}"
-                )));
+                return Err(AppError::Other(format!("Некорректная секция: {trimmed}")));
             }
             in_section = true;
             continue;
@@ -55,14 +53,10 @@ pub fn validate_wslconfig(content: &str) -> AppResult<()> {
         if trimmed.contains('=') {
             let parts: Vec<&str> = trimmed.splitn(2, '=').collect();
             if parts.len() != 2 || parts[0].trim().is_empty() {
-                return Err(AppError::Other(format!(
-                    "Некорректная строка: {trimmed}"
-                )));
+                return Err(AppError::Other(format!("Некорректная строка: {trimmed}")));
             }
         } else {
-            return Err(AppError::Other(format!(
-                "Некорректная строка: {trimmed}"
-            )));
+            return Err(AppError::Other(format!("Некорректная строка: {trimmed}")));
         }
     }
     Ok(())
@@ -100,8 +94,7 @@ pub fn parse_limits(content: &str) -> WslConfigLimits {
                 }
                 "swap" => limits.swap = Some(value.to_string()),
                 "localhostforwarding" => {
-                    limits.localhost_forwarding =
-                        Some(value.eq_ignore_ascii_case("true"));
+                    limits.localhost_forwarding = Some(value.eq_ignore_ascii_case("true"));
                 }
                 _ => {}
             }

@@ -13,10 +13,6 @@ pub async fn get_resource_usage(distro_name: String) -> AppResult<ResourceUsage>
 }
 
 #[tauri::command]
-pub fn get_portproxy_command(
-    listen_port: u16,
-    connect_port: u16,
-    connect_ip: String,
-) -> String {
+pub fn get_portproxy_command(listen_port: u16, connect_port: u16, connect_ip: String) -> String {
     network_service::portproxy_add_command(listen_port, connect_port, &connect_ip)
 }

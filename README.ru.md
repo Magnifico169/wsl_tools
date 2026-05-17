@@ -17,7 +17,7 @@
 - Windows 10 21H2+ / Windows 11
 - [WSL 2](https://learn.microsoft.com/ru-ru/windows/wsl/install)
 - [Node.js 20+](https://nodejs.org/)
-- [Rust (rustup)](https://rustup.rs/)
+- [Rust (rustup)](https://rustup.rs/) — `rustfmt` и `clippy` (ставятся через `rust-toolchain.toml` или `rustup component add rustfmt clippy`)
 - [Visual Studio Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) (рабочая нагрузка C++)
 - WebView2 (обычно уже есть в Windows 11)
 
@@ -45,15 +45,17 @@ npm run tauri build
 
 ## Скрипты
 
-| Скрипт | Описание |
-|--------|----------|
-| `npm run dev` | Tauri dev (окно приложения) |
-| `npm run dev:web` | Vite на http://127.0.0.1:1420 |
-| `npm run build` | Сборка фронтенда |
-| `npm run lint` | TypeScript + ESLint |
-| `npm run lint:rust` | rustfmt + clippy |
-| `npm run format` | Prettier |
-| `npm run icons` | Иконки из `assets/icon.svg` |
+| Скрипт                 | Описание                      |
+| ---------------------- | ----------------------------- |
+| `npm run dev`          | Tauri dev (окно приложения)   |
+| `npm run dev:web`      | Vite на http://127.0.0.1:1420 |
+| `npm run build`        | Сборка фронтенда              |
+| `npm run lint`         | TypeScript + ESLint           |
+| `npm run lint:rust`    | rustfmt (запись) + clippy     |
+| `npm run format:rust`  | только rustfmt                |
+| `npm run format`       | Prettier + rustfmt            |
+| `npm run format:check` | только проверка формата       |
+| `npm run icons`        | Иконки из `assets/icon.svg`   |
 
 ## Устранение неполадок
 

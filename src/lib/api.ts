@@ -55,11 +55,7 @@ export const api = {
     call<NetworkInfo>("get_network_info", { distroName: distroName ?? null }),
   getResourceUsage: (distroName: string) =>
     call<ResourceUsage>("get_resource_usage", { distroName }),
-  getPortproxyCommand: (
-    listenPort: number,
-    connectPort: number,
-    connectIp: string,
-  ) =>
+  getPortproxyCommand: (listenPort: number, connectPort: number, connectIp: string) =>
     call<string>("get_portproxy_command", {
       listenPort,
       connectPort,

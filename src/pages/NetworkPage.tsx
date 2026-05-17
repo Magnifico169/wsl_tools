@@ -31,8 +31,7 @@ export function NetworkPage() {
     enabled: inApp,
   });
 
-  const distroName =
-    selectedDistro || distros.find((d) => d.state === "running")?.name;
+  const distroName = selectedDistro || distros.find((d) => d.state === "running")?.name;
 
   const { data: network, isLoading } = useQuery({
     queryKey: queryKeys.network(distroName),
@@ -155,9 +154,7 @@ export function NetworkPage() {
                 </div>
                 <p>
                   CPU: {resources.cpuCount ?? "?"} ядер
-                  {resources.processorLimit
-                    ? ` (лимит ${resources.processorLimit})`
-                    : ""}
+                  {resources.processorLimit ? ` (лимит ${resources.processorLimit})` : ""}
                 </p>
                 {resources.swapLimitMb && (
                   <p>Swap лимит: {resources.swapLimitMb.toFixed(0)} MB</p>

@@ -1,8 +1,4 @@
-import {
-  useMutation,
-  useQueryClient,
-  type QueryKey,
-} from "@tanstack/react-query";
+import { useMutation, useQueryClient, type QueryKey } from "@tanstack/react-query";
 import { toast } from "@/hooks/use-toast";
 import { showErrorToast } from "@/lib/errors";
 
@@ -14,13 +10,7 @@ export function useWslMutation(options: UseWslMutationOptions = {}) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({
-      fn,
-      success,
-    }: {
-      fn: () => Promise<void>;
-      success: string;
-    }) => {
+    mutationFn: async ({ fn, success }: { fn: () => Promise<void>; success: string }) => {
       await fn();
       return success;
     },

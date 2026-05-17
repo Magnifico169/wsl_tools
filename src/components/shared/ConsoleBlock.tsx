@@ -8,11 +8,7 @@ interface ConsoleBlockProps {
   maxHeight?: string;
 }
 
-export function ConsoleBlock({
-  label,
-  content,
-  maxHeight = "none",
-}: ConsoleBlockProps) {
+export function ConsoleBlock({ label, content, maxHeight = "none" }: ConsoleBlockProps) {
   const [copied, setCopied] = useState(false);
 
   const copy = async () => {

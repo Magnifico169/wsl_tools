@@ -42,7 +42,8 @@ export function ConfigPage() {
     onSuccess: () =>
       toast({
         title: "Конфиг сохранён",
-        description: "Выполните «Перезапуск WSL» на вкладке дистрибутивов для применения.",
+        description:
+          "Выполните «Перезапуск WSL» на вкладке дистрибутивов для применения.",
       }),
     onError: (e: Error) => showErrorToast(e),
   });
@@ -54,16 +55,14 @@ export function ConfigPage() {
 
   return (
     <div className="space-y-4">
-      <PageHeader
-        title="Конфигурация"
-        description="Редактор %UserProfile%\\.wslconfig"
-      />
+      <PageHeader title="Конфигурация" description="Редактор %UserProfile%\\.wslconfig" />
 
       <Card>
         <CardHeader>
           <CardTitle className="text-base">.wslconfig</CardTitle>
           <CardDescription>
-            После сохранения требуется <code className="rounded bg-[var(--color-muted)] px-1">wsl --shutdown</code>
+            После сохранения требуется{" "}
+            <code className="rounded bg-[var(--color-muted)] px-1">wsl --shutdown</code>
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-3">
@@ -78,7 +77,10 @@ export function ConfigPage() {
             />
           )}
           <div className="flex flex-wrap gap-2">
-            <Button onClick={() => saveMutation.mutate()} disabled={saveMutation.isPending}>
+            <Button
+              onClick={() => saveMutation.mutate()}
+              disabled={saveMutation.isPending}
+            >
               Сохранить
             </Button>
             <Button variant="outline" onClick={loadTemplate}>
@@ -101,9 +103,12 @@ export function ConfigPage() {
               <dd>{limits.processors ?? "—"}</dd>
               <dt className="text-[var(--color-muted-foreground)]">Swap</dt>
               <dd>{limits.swap ?? "—"}</dd>
-              <dt className="text-[var(--color-muted-foreground)]">localhostForwarding</dt>
+              <dt className="text-[var(--color-muted-foreground)]">
+                localhostForwarding
+              </dt>
               <dd>
-                {limits.localhostForwarding === null || limits.localhostForwarding === undefined
+                {limits.localhostForwarding === null ||
+                limits.localhostForwarding === undefined
                   ? "—"
                   : limits.localhostForwarding
                     ? "true"

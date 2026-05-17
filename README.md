@@ -17,7 +17,7 @@ Minimal desktop app for managing WSL on Windows (Tauri 2 + Rust + React).
 - Windows 10 21H2+ / Windows 11
 - [WSL 2](https://learn.microsoft.com/windows/wsl/install)
 - [Node.js 20+](https://nodejs.org/)
-- [Rust (rustup)](https://rustup.rs/)
+- [Rust (rustup)](https://rustup.rs/) — `rustfmt` and `clippy` (installed automatically via `rust-toolchain.toml`, or `rustup component add rustfmt clippy`)
 - [Visual Studio Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) (C++ workload)
 - WebView2 (usually preinstalled on Windows 11)
 
@@ -45,15 +45,17 @@ Output: `src-tauri\target\release\bundle\`
 
 ## Scripts
 
-| Script | Description |
-|--------|-------------|
-| `npm run dev` | Tauri dev (app window) |
-| `npm run dev:web` | Vite on http://127.0.0.1:1420 |
-| `npm run build` | Production frontend build |
-| `npm run lint` | TypeScript + ESLint |
-| `npm run lint:rust` | rustfmt + clippy (from `src-tauri`) |
-| `npm run format` | Prettier write |
-| `npm run icons` | Generate icons from `assets/icon.svg` |
+| Script                 | Description                            |
+| ---------------------- | -------------------------------------- |
+| `npm run dev`          | Tauri dev (app window)                 |
+| `npm run dev:web`      | Vite on http://127.0.0.1:1420          |
+| `npm run build`        | Production frontend build              |
+| `npm run lint`         | TypeScript + ESLint                    |
+| `npm run lint:rust`    | rustfmt (write) + clippy (`src-tauri`) |
+| `npm run format:rust`  | rustfmt only (write)                   |
+| `npm run format`       | Prettier + rustfmt                     |
+| `npm run format:check` | Prettier + rustfmt check only          |
+| `npm run icons`        | Generate icons from `assets/icon.svg`  |
 
 ## Troubleshooting
 

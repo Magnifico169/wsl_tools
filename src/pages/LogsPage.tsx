@@ -17,7 +17,11 @@ export function LogsPage() {
 
   const inApp = isTauriApp();
 
-  const { data: logs = [], refetch, isFetching } = useQuery({
+  const {
+    data: logs = [],
+    refetch,
+    isFetching,
+  } = useQuery({
     queryKey: queryKeys.logs,
     queryFn: api.getLogs,
     refetchInterval: inApp ? 3000 : false,
@@ -138,9 +142,7 @@ export function LogsPage() {
               <p className="mb-2 text-[var(--color-muted-foreground)]">
                 {new Date(log.timestamp).toLocaleString("ru")}
               </p>
-              {log.stdout && (
-                <ConsoleBlock content={log.stdout} maxHeight="120px" />
-              )}
+              {log.stdout && <ConsoleBlock content={log.stdout} maxHeight="120px" />}
               {log.stderr && (
                 <pre className="mt-1 whitespace-pre-wrap text-[var(--color-destructive)]">
                   {log.stderr.slice(0, 500)}
