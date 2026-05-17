@@ -45,17 +45,18 @@ npm run tauri build
 
 ## Скрипты
 
-| Скрипт                 | Описание                      |
-| ---------------------- | ----------------------------- |
-| `npm run dev`          | Tauri dev (окно приложения)   |
-| `npm run dev:web`      | Vite на http://127.0.0.1:1420 |
-| `npm run build`        | Сборка фронтенда              |
-| `npm run lint`         | TypeScript + ESLint           |
-| `npm run lint:rust`    | rustfmt (запись) + clippy     |
-| `npm run format:rust`  | только rustfmt                |
-| `npm run format`       | Prettier + rustfmt            |
-| `npm run format:check` | только проверка формата       |
-| `npm run icons`        | Иконки из `assets/icon.svg`   |
+| Скрипт                     | Описание                      |
+| -------------------------- | ----------------------------- |
+| `npm run dev`              | Tauri dev (окно приложения)   |
+| `npm run dev:web`          | Vite на http://127.0.0.1:1420 |
+| `npm run build`            | Сборка фронтенда              |
+| `npm run lint`             | TypeScript + ESLint           |
+| `npm run lint:rust`        | rustfmt (запись) + clippy     |
+| `npm run format:rust`      | только rustfmt                |
+| `npm run format`           | Prettier + rustfmt            |
+| `npm run format:check`     | проверка Prettier             |
+| `npm run format:check:all` | Prettier + rustfmt            |
+| `npm run icons`            | Иконки из `assets/icon.svg`   |
 
 ## Устранение неполадок
 

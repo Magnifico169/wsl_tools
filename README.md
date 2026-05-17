@@ -45,17 +45,18 @@ Output: `src-tauri\target\release\bundle\`
 
 ## Scripts
 
-| Script                 | Description                            |
-| ---------------------- | -------------------------------------- |
-| `npm run dev`          | Tauri dev (app window)                 |
-| `npm run dev:web`      | Vite on http://127.0.0.1:1420          |
-| `npm run build`        | Production frontend build              |
-| `npm run lint`         | TypeScript + ESLint                    |
-| `npm run lint:rust`    | rustfmt (write) + clippy (`src-tauri`) |
-| `npm run format:rust`  | rustfmt only (write)                   |
-| `npm run format`       | Prettier + rustfmt                     |
-| `npm run format:check` | Prettier + rustfmt check only          |
-| `npm run icons`        | Generate icons from `assets/icon.svg`  |
+| Script                     | Description                            |
+| -------------------------- | -------------------------------------- |
+| `npm run dev`              | Tauri dev (app window)                 |
+| `npm run dev:web`          | Vite on http://127.0.0.1:1420          |
+| `npm run build`            | Production frontend build              |
+| `npm run lint`             | TypeScript + ESLint                    |
+| `npm run lint:rust`        | rustfmt (write) + clippy (`src-tauri`) |
+| `npm run format:rust`      | rustfmt only (write)                   |
+| `npm run format`           | Prettier + rustfmt                     |
+| `npm run format:check`     | Prettier check only                    |
+| `npm run format:check:all` | Prettier + rustfmt check               |
+| `npm run icons`            | Generate icons from `assets/icon.svg`  |
 
 ## Troubleshooting
 

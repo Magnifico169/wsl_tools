@@ -1,0 +1,6 @@
+* text=auto eol=lf
+
+*.{png,ico,icns,jpg,jpeg,gif,webp,svg} -text
+*.{woff,woff2,ttf,eot} -text
+
+package-lock.json -text
